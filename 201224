@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+
+def fetch_weather(city: str):
+    try:
+        # Замените URL на сайт, который предоставляет информацию о погоде
+        url = f"https://wttr.in/{city}?format=%C+%t"
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            weather_data = response.text.strip()
+            return f"Погода в {city}: {weather_data}"
+        else:
+            return f"Не удалось получить данные. Код ответа: {response.status_code}"
+    except Exception as e:
+        return f"Ошибка: {e}"
+
+def main():
+    print("Добро пожаловать в погодный парсер!")
+    city = input("Введите название города: ")
+    weather = fetch_weather(city)
+    print(weather)
+
+if __name__ == "__main__":
+    main()
